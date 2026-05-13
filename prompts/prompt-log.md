@@ -137,3 +137,13 @@ Responsive layout
 ### Reusable?
 
 `yes` it has created a shared folder that holds side-bar component
+
+```text
+I have created basic entities under model.entity package with the relationship
+  between organization, edgedevices and Site which are loosely defined without
+  importing jpa package. I want to use the existing definitions but have them as
+  plain dtos as database connection is not used her. let's create mock data once
+  the dtos are defined. Suggest any changes that are required to the current
+  definition. p.s we are not going to use db instead an in-memory mock data for
+  building the dashboard
+```
