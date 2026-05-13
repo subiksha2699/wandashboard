@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "enabled": true,
+  "name": "git auto-commit",
+  "description": "Commit file changes on git",
+  "when": {
+    "type": "userTriggered"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Create a contextual commit message for updates in the current repository and commit all."
+  }
+}
