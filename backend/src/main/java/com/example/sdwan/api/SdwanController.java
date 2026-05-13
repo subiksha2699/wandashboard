@@ -9,7 +9,7 @@ import java.time.Instant;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1")
 @CrossOrigin(origins = "*")
 public class SdwanController {
 
@@ -22,4 +22,7 @@ public class SdwanController {
                 "assignment", "Replace this starter endpoint with your SD-WAN dashboard API."
         );
     }
+
+    @GetMapping("/organizations")
+    public List
 }

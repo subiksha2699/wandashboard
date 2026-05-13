@@ -1,0 +1,45 @@
+<aside class="sidebar" [class.sidebar--collapsed]="collapsed">
+  <!-- Logo / Brand -->
+  <div class="sidebar__brand">
+    <i class="pi pi-globe sidebar__logo"></i>
+    <span class="sidebar__brand-text" *ngIf="!collapsed">SD-WAN</span>
+  </div>
+
+  <!-- Navigation Items -->
+  <nav class="sidebar__nav">
+    <a
+      *ngFor="let item of navItems"
+      class="sidebar__nav-item"
+      [routerLink]="item.route"
+      routerLinkActive="sidebar__nav-item--active"
+      [pTooltip]="collapsed ? item.label : ''"
+      tooltipPosition="right"
+    >
+      <i [class]="item.icon + ' sidebar__nav-icon'"></i>
+      <span class="sidebar__nav-label" *ngIf="!collapsed">{{ item.label }}</span>
+    </a>
+  </nav>
+
+  <!-- Toggle Button -->
+  <button 
+    class="sidebar__toggle" 
+    *ngIf="!collapsed"
+    (click)="toggleSidebar()" 
+    [attr.aria-label]="'Collapse sidebar'"
+  >
+    <i class="pi pi-chevron-left"></i>
+    <span class="sidebar__toggle-label">Collapse</span>
+  </button>
+
+  <!-- Expand Button (when collapsed) -->
+  <button 
+    class="sidebar__expand" 
+    *ngIf="collapsed"
+    (click)="toggleSidebar()" 
+    [attr.aria-label]="'Expand sidebar'"
+    [pTooltip]="'Expand'"
+    tooltipPosition="right"
+  >
+    <i class="pi pi-chevron-right"></i>
+  </button>
+</aside>

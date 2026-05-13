@@ -86,3 +86,54 @@ The AI updated the tech.md , product.md, plans.md, naming-conventions.md using t
 ### Reusable?
 
 `yes` because this sets the basic context for kiro and all it's model to build this proect.
+
+---
+
+## Create Dashboard prompt
+
+### Date
+
+`2026-05-13`
+
+### Goal
+
+Setting up dashboard with sidebar by connecting to figma power
+
+### Exact Prompt
+
+```text
+Let's create a SD-WAN dashboard with figma design as given here. https://www.figma.com/design/mfIfvp5RyCL2DN3JeCK57r/Untitled?node-id=1-2&t=iNKy26Ojpn5J7wed-4.
+
+The dashboard should be collapsible with icons visible when collapsed. Hovering over the icons should show a pop up of the name of the page. Let's have the dashboard page under /src/app/pages/dashboard. 
+```
+
+### Files / Context Provided
+
+- `wandashboard/frontend`
+- `wandashboard/frontend/dashboard`
+- `wandashboard/.kiro`
+
+### Output Summary
+
+A dashborad page with following is created
+Summary cards with KPIs (sites, devices, health status, latency)
+Site health overview table with availability bars
+Recent alerts panel with severity indicators
+API connection status indicator
+Responsive layout
+
+### What I Kept
+
+- The sidebar and dashboard component
+
+### What I Changed Manually
+
+- I added a button the sidebar which is on it's border.
+
+### What AI Missed Or Got Wrong
+
+- It missed adding the header component
+
+### Reusable?
+
+`yes` it has created a shared folder that holds side-bar component

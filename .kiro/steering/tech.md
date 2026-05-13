@@ -15,8 +15,10 @@ inclusion: always
   - Use for data tables, charts, buttons, forms, and layout components
   - Leverage PrimeNG themes for consistent styling
   - Use p-chart for WAN telemetry visualization
-- **PrimeFlex**: CSS utility library for responsive layouts
 - **PrimeIcons**: Icon library that integrates with PrimeNG
+- **@fortawesome/angular-fontawesome**: (Font Awesome) for fonts.
+- **@ngx-charts**: Chart utility library (import this only if required and chart not already present in PrimeNg)
+- **Tailwind**: CSS utility library for responsive layouts
 
 ## Development Tools
 - **Node.js 20+**: Required for Angular development

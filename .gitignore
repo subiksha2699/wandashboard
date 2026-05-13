@@ -3,3 +3,4 @@ frontend/.angular/
 frontend/dist/
 frontend/node_modules/
 /.vscode
+.kiro/settings/mcp.json

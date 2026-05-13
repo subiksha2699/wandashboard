@@ -1,16 +1,14 @@
 :root {
-  --bg: #f5efe5;
+  --bg: #f8fafc;
   --panel: #ffffff;
-  --border: rgba(18, 31, 55, 0.12);
-  --ink: #162033;
-  --muted: #566273;
-  --shadow: 0 18px 40px rgba(18, 31, 55, 0.08);
-  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  --border: #e2e8f0;
+  --ink: #1e293b;
+  --muted: #64748b;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  --sidebar-width: 260px;
+  --sidebar-collapsed-width: 72px;
+  font-family: "Inter", "Segoe UI", -apple-system, sans-serif;
   color: var(--ink);
-  background:
-    radial-gradient(circle at top left, rgba(245, 211, 161, 0.34), transparent 30%),
-    radial-gradient(circle at right, rgba(125, 161, 223, 0.2), transparent 28%),
-    linear-gradient(180deg, #f8f2e8 0%, #f2f5f9 100%);
 }
 
 * {
@@ -20,7 +18,7 @@
 html,
 body {
   margin: 0;
-  min-height: 100%;
+  min-height: 100vh;
   background: var(--bg);
 }
 
@@ -32,4 +30,18 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+/* PrimeNG tooltip overrides for sidebar */
+.p-tooltip {
+  font-size: 0.82rem;
+}
+
+.p-tooltip .p-tooltip-text {
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+  background: #1e293b;
+  color: #f8fafc;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
