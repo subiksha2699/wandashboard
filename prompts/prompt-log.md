@@ -147,3 +147,13 @@ I have created basic entities under model.entity package with the relationship
   definition. p.s we are not going to use db instead an in-memory mock data for
   building the dashboard
 ```
+
+```text
+let's create service interface and impl methods for getting site list provided
+  an organiztion name, let's take the organizationId in the query param and
+  configure the id and name in the application.properties. Let's also create
+  another api and it's service method for getting list of edgedevices given a
+  siteId in the queryparam.
+  ```
+
+  this prompt did not add the service and impl classes as requested
