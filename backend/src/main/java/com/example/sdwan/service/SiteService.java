@@ -5,5 +5,5 @@ import com.example.sdwan.model.dto.Site;
 import java.util.List;
 
 public interface SiteService {
-    List<Site> getSitesByOrganisationId(String organisationId);
+    List<Site> getSitesByOrganisationId(String organisationId) throws Exception;
 }
