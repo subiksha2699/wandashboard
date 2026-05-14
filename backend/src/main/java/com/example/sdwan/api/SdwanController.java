@@ -47,7 +47,7 @@ public class SdwanController {
 
     @GetMapping("/organizations")
     public ResponseEntity<List<Organisation>> getOrganizations() {
-        return ResponseEntity.ok(List.of(new Organisation(mockOrgId, mockOrgName, null, null, null)));
+        return ResponseEntity.ok(MockDataStore.ORGANISATIONS);
     }
 
     @GetMapping("/sites")

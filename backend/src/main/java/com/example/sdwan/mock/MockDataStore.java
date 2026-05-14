@@ -20,6 +20,10 @@ public class MockDataStore {
     public static final List<Site> SITES = List.of(
             new Site("site-1", "HQ", "org-1", 3, "2024-01-05", "2024-06-01"),
             new Site("site-2", "Branch East", "org-1", 2, "2024-01-10", "2024-06-01"),
+            new Site("site-4", "Branch West", "org-1", 1, "2024-01-15", "2024-06-01"),
+            new Site("site-5", "Branch North", "org-1", 2, "2024-01-20", "2024-06-01"),
+            new Site("site-6", "Branch South", "org-1", 1, "2024-01-25", "2024-06-01"),
+            new Site("site-7", "Remote Office", "org-1", 1, "2024-02-01", "2024-06-01"),
             new Site("site-3", "Main Office", "org-2", 1, "2024-02-20", "2024-06-10")
     );
 
