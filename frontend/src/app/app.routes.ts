@@ -17,6 +17,16 @@ export const routes: Routes = [
       import('./pages/organization/organization.component').then(m => m.OrganizationComponent)
   },
   {
+    path: 'site/:siteId',
+    loadComponent: () =>
+      import('./pages/site-detail/site.component').then(m => m.SiteComponent)
+  },
+  {
+    path: 'edge/:deviceId',
+    loadComponent: () =>
+      import('./pages/edge-detail/edge-detail.component').then(m => m.EdgeDetailComponent)
+  },
+  {
     path: 'sites',
     loadComponent: () =>
       import('./pages/dashboard/dashboard.component').then(m => m.DashboardComponent),

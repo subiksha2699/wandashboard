@@ -1,0 +1,76 @@
+<div class="site-page">
+  <header class="site-page__header">
+    <div class="site-page__breadcrumb">
+      <a routerLink="/dashboard" class="breadcrumb__link">Dashboard</a>
+      <i class="pi pi-chevron-right breadcrumb__sep"></i>
+      <a routerLink="/organization" class="breadcrumb__link">Organization</a>
+      <i class="pi pi-chevron-right breadcrumb__sep"></i>
+      <span class="breadcrumb__current">{{ siteName || siteId }}</span>
+    </div>
+    <h1 class="site-page__title">{{ siteName || siteId }}</h1>
+  </header>
+
+  <div class="state-loading" *ngIf="loading">
+    <i class="pi pi-spin pi-spinner"></i>
+    <span>Loading edge devices...</span>
+  </div>
+
+  <div class="state-error" *ngIf="error">
+    <i class="pi pi-exclamation-circle"></i>
+    <span>{{ error }}</span>
+  </div>
+
+  <ng-container *ngIf="!loading && !error">
+    <section class="site-page__summary">
+      <div class="summary-pill">
+        <span class="summary-pill__value">{{ totalDevices }}</span>
+        <span class="summary-pill__label">Total Devices</span>
+      </div>
+      <div class="summary-pill summary-pill--healthy">
+        <span class="summary-pill__value">{{ totalOnline }}</span>
+        <span class="summary-pill__label">Online</span>
+      </div>
+      <div class="summary-pill summary-pill--degraded">
+        <span class="summary-pill__value">{{ totalOffline }}</span>
+        <span class="summary-pill__label">Offline</span>
+      </div>
+    </section>
+
+    <section class="site-page__panel">
+      <div class="panel__header">
+        <h2 class="panel__title">Edge Devices</h2>
+        <span class="panel__badge">{{ devices.length }} devices</span>
+      </div>
+      <div class="panel__content">
+        <table class="devices-table">
+          <thead>
+            <tr>
+              <th>Device Name</th>
+              <th>Role</th>
+              <th>System IP</th>
+              <th>Status</th>
+              <th>Uptime</th>
+              <th>Last Down</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let device of devices" class="devices-table__row">
+              <td class="devices-table__name">
+                <a (click)="navigateToDevice(device)" class="devices-table__link">{{ device.deviceName }}</a>
+              </td>
+              <td>{{ device.role }}</td>
+              <td class="devices-table__ip">{{ device.systemIp }}</td>
+              <td>
+                <span class="status-badge" [ngClass]="getStatusClass(device.status)">
+                  {{ device.status }}
+                </span>
+              </td>
+              <td class="devices-table__uptime">{{ uptimeMap[device.id] || '—' }}</td>
+              <td>{{ device.lastDownTime || '—' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </ng-container>
+</div>

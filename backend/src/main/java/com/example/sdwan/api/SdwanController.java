@@ -1,6 +1,8 @@
 package com.example.sdwan.api;
 
+import com.example.sdwan.model.dto.DevicePort;
 import com.example.sdwan.model.dto.EdgeDevice;
+import com.example.sdwan.model.dto.EdgeDeviceDetailDTO;
 import com.example.sdwan.model.dto.Organisation;
 import com.example.sdwan.model.dto.Site;
 import com.example.sdwan.model.dto.SiteSummaryDTO;
@@ -74,5 +76,23 @@ public class SdwanController {
             throw new BadRequestException("Site ID is required");
         }
         return ResponseEntity.ok(edgeDeviceService.getEdgeDevicesBySiteId(siteId));
+    }
+
+    @GetMapping("/edge-devices/{deviceId}")
+    public ResponseEntity<EdgeDeviceDetailDTO> getEdgeDeviceDetail(@PathVariable String deviceId) {
+        EdgeDevice device = MockDataStore.EDGE_DEVICES.stream()
+                .filter(d -> d.getId().equals(deviceId))
+                .findFirst()
+                .orElseThrow(() -> new ResourceNotFoundException("Edge device not found: " + deviceId));
+
+        List<DevicePort> wanPorts = MockDataStore.DEVICE_PORTS.stream()
+                .filter(p -> p.getDeviceId().equals(deviceId) && "WAN".equals(p.getPortType()))
+                .toList();
+
+        List<DevicePort> lanPorts = MockDataStore.DEVICE_PORTS.stream()
+                .filter(p -> p.getDeviceId().equals(deviceId) && "LAN".equals(p.getPortType()))
+                .toList();
+
+        return ResponseEntity.ok(new EdgeDeviceDetailDTO(device, wanPorts, lanPorts));
     }
 }

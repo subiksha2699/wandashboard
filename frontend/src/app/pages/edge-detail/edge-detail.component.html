@@ -1,0 +1,164 @@
+<div class="edge-page">
+  <!-- Breadcrumb -->
+  <header class="edge-page__header">
+    <div class="edge-page__breadcrumb">
+      <a routerLink="/dashboard" class="breadcrumb__link">Dashboard</a>
+      <i class="pi pi-chevron-right breadcrumb__sep"></i>
+      <a routerLink="/organization" class="breadcrumb__link">Organization</a>
+      <i class="pi pi-chevron-right breadcrumb__sep"></i>
+      <a [routerLink]="['/site', siteId]" class="breadcrumb__link">{{ siteName || siteId }}</a>
+      <i class="pi pi-chevron-right breadcrumb__sep"></i>
+      <span class="breadcrumb__current">{{ device?.deviceName || deviceId }}</span>
+    </div>
+    <h1 class="edge-page__title">{{ device?.deviceName || deviceId }}</h1>
+    <p class="edge-page__subtitle" *ngIf="device">{{ device.role | titlecase }} • {{ device.systemIp }}</p>
+  </header>
+
+  <!-- Loading -->
+  <div class="state-loading" *ngIf="loading">
+    <i class="pi pi-spin pi-spinner"></i>
+    <span>Loading edge device details...</span>
+  </div>
+
+  <!-- Error -->
+  <div class="state-error" *ngIf="error">
+    <i class="pi pi-exclamation-circle"></i>
+    <span>{{ error }}</span>
+  </div>
+
+  <ng-container *ngIf="!loading && !error && device">
+    <!-- Device Info Cards -->
+    <section class="edge-page__info-grid">
+      <div class="info-card">
+        <span class="info-card__label">Status</span>
+        <span class="info-card__value">
+          <span class="status-badge" [ngClass]="getStatusClass(device.status)">{{ device.status }}</span>
+        </span>
+      </div>
+      <div class="info-card">
+        <span class="info-card__label">Uptime</span>
+        <span class="info-card__value info-card__value--mono">{{ uptime }}</span>
+      </div>
+      <div class="info-card">
+        <span class="info-card__label">Role</span>
+        <span class="info-card__value">{{ device.role | titlecase }}</span>
+      </div>
+      <div class="info-card">
+        <span class="info-card__label">System IP</span>
+        <span class="info-card__value info-card__value--mono">{{ device.systemIp }}</span>
+      </div>
+      <div class="info-card">
+        <span class="info-card__label">WAN Ports</span>
+        <span class="info-card__value">{{ getWanPortsUp() }}/{{ device.wanPorts.length }} UP</span>
+      </div>
+      <div class="info-card">
+        <span class="info-card__label">LAN Ports</span>
+        <span class="info-card__value">{{ getLanPortsUp() }}/{{ device.lanPorts.length }} UP</span>
+      </div>
+    </section>
+
+    <!-- WAN Ports -->
+    <section class="edge-page__panel">
+      <div class="panel__header">
+        <h2 class="panel__title">
+          <i class="pi pi-globe panel__icon panel__icon--wan"></i>
+          WAN Interfaces
+        </h2>
+        <span class="panel__badge">{{ device.wanPorts.length }} ports</span>
+      </div>
+      <div class="panel__content">
+        <table class="ports-table">
+          <thead>
+            <tr>
+              <th>Port</th>
+              <th>Status</th>
+              <th>IP Address</th>
+              <th>Speed</th>
+              <th>Bandwidth</th>
+              <th>Latency</th>
+              <th>Packet Loss</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let port of device.wanPorts" class="ports-table__row">
+              <td class="ports-table__name">{{ port.portName }}</td>
+              <td>
+                <span class="port-badge" [ngClass]="getPortStatusClass(port.status)">
+                  {{ port.status }}
+                </span>
+              </td>
+              <td class="ports-table__ip">{{ port.ipAddress }}/{{ port.subnet }}</td>
+              <td>{{ port.speed }}</td>
+              <td>
+                <div class="metric-bar">
+                  <div class="metric-bar__fill metric-bar__fill--bw" [style.width.%]="port.bandwidthUtilization"></div>
+                </div>
+                <span class="metric-value">{{ port.bandwidthUtilization }}%</span>
+              </td>
+              <td>
+                <span class="metric-value" [class.metric-value--warn]="port.latencyMs > 30">
+                  {{ port.latencyMs }} ms
+                </span>
+              </td>
+              <td>
+                <span class="metric-value" [class.metric-value--danger]="port.packetLossPercent > 1">
+                  {{ port.packetLossPercent }}%
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- LAN Ports -->
+    <section class="edge-page__panel">
+      <div class="panel__header">
+        <h2 class="panel__title">
+          <i class="pi pi-sitemap panel__icon panel__icon--lan"></i>
+          LAN Interfaces
+        </h2>
+        <span class="panel__badge">{{ device.lanPorts.length }} ports</span>
+      </div>
+      <div class="panel__content">
+        <table class="ports-table">
+          <thead>
+            <tr>
+              <th>Port</th>
+              <th>Status</th>
+              <th>IP Address</th>
+              <th>Speed</th>
+              <th>Bandwidth</th>
+              <th>Latency</th>
+              <th>Packet Loss</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let port of device.lanPorts" class="ports-table__row">
+              <td class="ports-table__name">{{ port.portName }}</td>
+              <td>
+                <span class="port-badge" [ngClass]="getPortStatusClass(port.status)">
+                  {{ port.status }}
+                </span>
+              </td>
+              <td class="ports-table__ip">{{ port.ipAddress }}/{{ port.subnet }}</td>
+              <td>{{ port.speed }}</td>
+              <td>
+                <div class="metric-bar">
+                  <div class="metric-bar__fill metric-bar__fill--bw" [style.width.%]="port.bandwidthUtilization"></div>
+                </div>
+                <span class="metric-value">{{ port.bandwidthUtilization }}%</span>
+              </td>
+              <td>
+                <span class="metric-value">{{ port.latencyMs }} ms</span>
+              </td>
+              <td>
+                <span class="metric-value">{{ port.packetLossPercent }}%</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </ng-container>
+</div>

@@ -78,7 +78,9 @@
           </thead>
           <tbody>
             <tr *ngFor="let site of sites" class="sites-table__row">
-              <td class="sites-table__name">{{ site.name }}</td>
+              <td class="sites-table__name">
+                <a (click)="navigateToSite(site)" class="sites-table__link">{{ site.name }}</a>
+              </td>
               <td>
                 <span class="health-badge" [ngClass]="getHealthClass(site.healthStatus)">
                   {{ site.healthStatus }}

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { HealthResponse, Organisation, SiteSummary } from './models';
+import { EdgeDevice, EdgeDeviceDetail, HealthResponse, Organisation, SiteSummary } from './models';
 
 @Injectable({ providedIn: 'root' })
 export class SdwanApiService {
@@ -19,5 +19,15 @@ export class SdwanApiService {
     return this.http.get<SiteSummary[]>(`${this.baseUrl}/sites`, {
       params: { organisationId }
     });
+  }
+
+  getEdgeDevices(siteId: string) {
+    return this.http.get<EdgeDevice[]>(`${this.baseUrl}/edge-devices`, {
+      params: { siteId }
+    });
+  }
+
+  getEdgeDeviceDetail(deviceId: string) {
+    return this.http.get<EdgeDeviceDetail>(`${this.baseUrl}/edge-devices/${deviceId}`);
   }
 }

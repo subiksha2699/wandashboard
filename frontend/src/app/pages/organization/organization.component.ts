@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { SdwanApiService } from '../../core/sdwan-api.service';
 import { SiteSummary } from '../../core/models';
 
@@ -13,6 +13,7 @@ import { SiteSummary } from '../../core/models';
 })
 export class OrganizationComponent implements OnInit {
   private readonly api = inject(SdwanApiService);
+  private readonly router = inject(Router);
 
   sites: SiteSummary[] = [];
   loading = true;
@@ -50,5 +51,11 @@ export class OrganizationComponent implements OnInit {
 
   getHealthClass(status: string): string {
     return `health--${status.toLowerCase()}`;
+  }
+
+  navigateToSite(site: SiteSummary): void {
+    this.router.navigate(['/site', site.id], {
+      state: { site }   // entire row data available as history.state.site
+    });
   }
 }
