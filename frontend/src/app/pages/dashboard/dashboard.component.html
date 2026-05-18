@@ -2,39 +2,54 @@
   <!-- Page Header -->
   <header class="dashboard__header">
     <div>
-      <h1 class="dashboard__title">{{ pageTitle }}</h1>
+      <h1 class="dashboard__title">Dashboard Overview</h1>
       <p class="dashboard__subtitle">Real-time SD-WAN network monitoring and health overview</p>
-    </div>
-    <div class="dashboard__status" *ngIf="apiStatus$ | async as status">
-      <span class="status-dot" [class.status-dot--online]="status.connected"></span>
-      <span class="status-text">{{ status.label }}</span>
     </div>
   </header>
 
-  <!-- Summary Cards -->
-  <section class="dashboard__summary">
-    <div
-      class="summary-card"
-      *ngFor="let card of summaryCards"
-    >
-      <div class="summary-card__icon" [style.background-color]="card.color + '15'" [style.color]="card.color">
-        <i [class]="card.icon"></i>
-      </div>
-      <div class="summary-card__content">
-        <span class="summary-card__value">{{ card.value }}</span>
-        <span class="summary-card__title">{{ card.title }}</span>
-        <span class="summary-card__trend" *ngIf="card.trend">{{ card.trend }}</span>
-      </div>
-    </div>
-  </section>
+  <!-- Loading State -->
+  <div class="dashboard__loading" *ngIf="loading">
+    <i class="pi pi-spin pi-spinner"></i>
+    <span>Loading dashboard data...</span>
+  </div>
 
-  <!-- Main Content Grid -->
-  <section class="dashboard__grid">
+  <!-- Error State -->
+  <div class="dashboard__error" *ngIf="error">
+    <i class="pi pi-exclamation-circle"></i>
+    <span>{{ error }}</span>
+  </div>
+
+  <!-- Content -->
+  <ng-container *ngIf="!loading && !error">
+    <!-- Summary Cards -->
+    <section class="dashboard__summary">
+      <div
+        class="summary-card"
+        *ngFor="let card of summaryCards; let i = index"
+      >
+        <div class="summary-card__icon" [style.background-color]="card.color + '15'" [style.color]="card.color">
+          <i [class]="card.icon"></i>
+        </div>
+        <div class="summary-card__content">
+          <span class="summary-card__value">{{ card.value }}</span>
+          <span class="summary-card__title">{{ card.title }}</span>
+        </div>
+        <!-- CTA link only on Total Sites card (index 0) -->
+        
+      </div>
+    </section>
+
     <!-- Site Health Table -->
-    <div class="dashboard__panel dashboard__panel--wide">
+    <section class="dashboard__panel">
       <div class="panel__header">
         <h2 class="panel__title">Site Health Overview</h2>
-        <span class="panel__badge">{{ siteHealthSummary.length }} sites</span>
+        <div class="flex__row">
+          <a routerLink="/organization" class="summary-card__cta" title="Organization view">
+            <i class="pi pi-arrow-right"></i>
+          </a>
+          <span class="panel__badge">{{ sites.length }} sites</span>
+        </div>
+      
       </div>
       <div class="panel__content">
         <table class="health-table">
@@ -42,58 +57,39 @@
             <tr>
               <th>Site Name</th>
               <th>Status</th>
-              <th>Devices</th>
+              <th>Total Edges</th>
               <th>Online</th>
+              <th>Offline</th>
               <th>Availability</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let site of siteHealthSummary">
+            <tr *ngFor="let site of sites">
               <td class="health-table__name">{{ site.name }}</td>
               <td>
-                <span class="health-badge" [ngClass]="getHealthClass(site.status)">
-                  {{ site.status }}
+                <span class="health-badge" [ngClass]="getHealthClass(site.healthStatus)">
+                  {{ site.healthStatus }}
                 </span>
               </td>
-              <td>{{ site.devices }}</td>
-              <td>{{ site.onlineDevices }}</td>
+              <td>{{ site.totalEdges }}</td>
+              <td class="online-count">{{ getOnlineDevices(site) }}</td>
+              <td class="offline-count">{{ getOfflineDevices(site) }}</td>
               <td>
                 <div class="availability-bar">
                   <div
                     class="availability-bar__fill"
-                    [style.width.%]="(site.onlineDevices / site.devices) * 100"
-                    [ngClass]="getHealthClass(site.status)"
+                    [style.width.%]="site.totalEdges > 0 ? (getOnlineDevices(site) / site.totalEdges) * 100 : 0"
+                    [ngClass]="getHealthClass(site.healthStatus)"
                   ></div>
                 </div>
-                <span class="availability-text">{{ ((site.onlineDevices / site.devices) * 100) | number:'1.0-0' }}%</span>
+                <span class="availability-text">
+                  {{ site.totalEdges > 0 ? ((getOnlineDevices(site) / site.totalEdges) * 100 | number:'1.0-0') : 0 }}%
+                </span>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
-    </div>
-
-    <!-- Recent Alerts -->
-    <div class="dashboard__panel">
-      <div class="panel__header">
-        <h2 class="panel__title">Recent Alerts</h2>
-        <span class="panel__badge panel__badge--alert">{{ recentAlerts.length }}</span>
-      </div>
-      <div class="panel__content">
-        <div class="alert-list">
-          <div
-            class="alert-item"
-            *ngFor="let alert of recentAlerts"
-            [ngClass]="getSeverityClass(alert.severity)"
-          >
-            <div class="alert-item__indicator"></div>
-            <div class="alert-item__content">
-              <p class="alert-item__message">{{ alert.message }}</p>
-              <span class="alert-item__time">{{ alert.time }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
+  </ng-container>
 </div>

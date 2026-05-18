@@ -1,0 +1,266 @@
+.org-page {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Header */
+.org-page__header {
+  margin-bottom: 2rem;
+}
+
+.org-page__breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.breadcrumb__link {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #3b82f6;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.breadcrumb__link:hover {
+  color: #2563eb;
+}
+
+.breadcrumb__sep {
+  font-size: 0.7rem;
+  color: #cbd5e1;
+}
+
+.breadcrumb__current {
+  color: #475569;
+  font-weight: 500;
+}
+
+.org-page__title {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.org-page__subtitle {
+  margin: 0.25rem 0 0;
+  color: #64748b;
+  font-size: 0.95rem;
+}
+
+/* Loading & Error */
+.state-loading,
+.state-error {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 2rem;
+  border-radius: 12px;
+  font-size: 1rem;
+}
+
+.state-loading {
+  color: #3b82f6;
+}
+
+.state-loading i {
+  font-size: 1.5rem;
+}
+
+.state-error {
+  background: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+}
+
+/* Summary Strip */
+.org-page__summary {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.summary-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 1.75rem;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  min-width: 110px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.summary-pill--healthy {
+  border-color: #bbf7d0;
+  background: #f0fdf4;
+}
+
+.summary-pill--degraded {
+  border-color: #fde68a;
+  background: #fffbeb;
+}
+
+.summary-pill--down {
+  border-color: #fecaca;
+  background: #fef2f2;
+}
+
+.summary-pill__value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1e293b;
+  line-height: 1;
+}
+
+.summary-pill--healthy .summary-pill__value { color: #16a34a; }
+.summary-pill--degraded .summary-pill__value { color: #d97706; }
+.summary-pill--down .summary-pill__value { color: #dc2626; }
+
+.summary-pill__label {
+  font-size: 0.78rem;
+  color: #64748b;
+  margin-top: 0.35rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Panel */
+.org-page__panel {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+}
+
+.panel__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.panel__title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.panel__badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  background: #f1f5f9;
+  color: #475569;
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+.panel__content {
+  padding: 0 1.5rem 1.5rem;
+}
+
+/* Sites Table */
+.sites-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.sites-table th {
+  text-align: left;
+  padding: 0.85rem 0.75rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.sites-table td {
+  padding: 1rem 0.75rem;
+  font-size: 0.9rem;
+  color: #334155;
+  border-bottom: 1px solid #f8fafc;
+}
+
+.sites-table__row:last-child td {
+  border-bottom: none;
+}
+
+.sites-table__name {
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.sites-table__total {
+  color: #475569;
+  font-weight: 500;
+}
+
+.sites-table__healthy {
+  color: #16a34a;
+  font-weight: 600;
+}
+
+.sites-table__degraded {
+  color: #d97706;
+  font-weight: 600;
+}
+
+.sites-table__down {
+  color: #dc2626;
+  font-weight: 600;
+}
+
+.col-healthy { color: #16a34a; }
+.col-degraded { color: #d97706; }
+.col-down { color: #dc2626; }
+
+/* Health Badge */
+.health-badge {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.health--healthy {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.health--degraded {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.health--down {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+@media (max-width: 768px) {
+  .org-page__summary {
+    gap: 0.75rem;
+  }
+
+  .summary-pill {
+    flex: 1;
+    min-width: 80px;
+    padding: 0.75rem 1rem;
+  }
+}

@@ -1,0 +1,97 @@
+<div class="org-page">
+  <!-- Header -->
+  <header class="org-page__header">
+    <div class="org-page__breadcrumb">
+      <a routerLink="/dashboard" class="breadcrumb__link">
+        <i class="pi pi-th-large"></i>
+        Dashboard
+      </a>
+      <i class="pi pi-chevron-right breadcrumb__sep"></i>
+      <span class="breadcrumb__current">Organization</span>
+    </div>
+    <div>
+      <h1 class="org-page__title">Organization Overview</h1>
+      <p class="org-page__subtitle">Acme Corp — site health and edge device summary</p>
+    </div>
+  </header>
+
+  <!-- Loading -->
+  <div class="state-loading" *ngIf="loading">
+    <i class="pi pi-spin pi-spinner"></i>
+    <span>Loading organization data...</span>
+  </div>
+
+  <!-- Error -->
+  <div class="state-error" *ngIf="error">
+    <i class="pi pi-exclamation-circle"></i>
+    <span>{{ error }}</span>
+  </div>
+
+  <ng-container *ngIf="!loading && !error">
+    <!-- Summary Strip -->
+    <section class="org-page__summary">
+      <div class="summary-pill">
+        <span class="summary-pill__value">{{ totalSites }}</span>
+        <span class="summary-pill__label">Total Sites</span>
+      </div>
+       <div class="summary-pill">
+        <span class="summary-pill__value">{{ totalEdgeDevices }}</span>
+        <span class="summary-pill__label">Total Edge Devices</span>
+      </div>
+      <div class="summary-pill summary-pill--healthy">
+        <span class="summary-pill__value">{{ totalHealthy }}</span>
+        <span class="summary-pill__label">Healthy sites</span>
+      </div>
+      <div class="summary-pill summary-pill--degraded">
+        <span class="summary-pill__value">{{ totalDegraded }}</span>
+        <span class="summary-pill__label">Degraded sites</span>
+      </div>
+      <div class="summary-pill summary-pill--down">
+        <span class="summary-pill__value">{{ totalDown }}</span>
+        <span class="summary-pill__label">Down sites</span>
+      </div>
+    </section>
+
+    <!-- Sites Table -->
+    <section class="org-page__panel">
+      <div class="panel__header">
+        <h2 class="panel__title">Sites</h2>
+        <span class="panel__badge">{{ sites.length }} sites</span>
+      </div>
+      <div class="panel__content">
+        <table class="sites-table">
+          <thead>
+            <tr>
+              <th>Site Name</th>
+              <th>Health Status</th>
+              <th>Total Edges</th>
+              <th>
+                <span class="col-healthy">Healthy</span>
+              </th>
+              <th>
+                <span class="col-degraded">Degraded</span>
+              </th>
+              <th>
+                <span class="col-down">Down</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let site of sites" class="sites-table__row">
+              <td class="sites-table__name">{{ site.name }}</td>
+              <td>
+                <span class="health-badge" [ngClass]="getHealthClass(site.healthStatus)">
+                  {{ site.healthStatus }}
+                </span>
+              </td>
+              <td class="sites-table__total">{{ site.totalEdges }}</td>
+              <td class="sites-table__healthy">{{ site.healthyDevices }}</td>
+              <td class="sites-table__degraded">{{ site.degradedDevices }}</td>
+              <td class="sites-table__down">{{ site.downDevices }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </ng-container>
+</div>

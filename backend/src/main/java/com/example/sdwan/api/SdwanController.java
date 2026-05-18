@@ -3,6 +3,7 @@ package com.example.sdwan.api;
 import com.example.sdwan.model.dto.EdgeDevice;
 import com.example.sdwan.model.dto.Organisation;
 import com.example.sdwan.model.dto.Site;
+import com.example.sdwan.model.dto.SiteSummaryDTO;
 import com.example.sdwan.service.EdgeDeviceService;
 import com.example.sdwan.service.SiteService;
 import org.springframework.beans.factory.annotation.Value;
@@ -51,7 +52,7 @@ public class SdwanController {
     }
 
     @GetMapping("/sites")
-    public ResponseEntity<List<Site>> getSites(@RequestParam String organisationId) {
+    public ResponseEntity<List<SiteSummaryDTO>> getSites(@RequestParam String organisationId) {
         if (organisationId == null || organisationId.trim().isEmpty()) {
             throw new BadRequestException("Organisation ID is required");
         }

@@ -157,3 +157,11 @@ let's create service interface and impl methods for getting site list provided
   ```
 
   this prompt did not add the service and impl classes as requested
+
+
+  ```text
+  Let's create the organization page which use the same api to create the table component, except the table columns have healthy,  degrade and down count. Create this organization view and a cta (lInk) for this in dashboard view next to where the total site count appears.
+  ```
+
+  this prompt did not calcuate the status correctly
+  
